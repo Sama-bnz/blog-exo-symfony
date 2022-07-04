@@ -11,8 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
 /**
+ * Je crée ma route avec mon nom URL
  * @Route("listref", name="listref")
  */
+//Je crée ensuite ma méthode que je nomme listRef
     public function listRef()
     {
         $articles = [
@@ -53,6 +55,7 @@ class ListController extends AbstractController
                 'id' => 4
             ],
         ];
+        //        Je donne le chemin à suivre vers mon twig
         return $this ->render ('list.html.twig', ['articles'=> $articles]);
     }
 }

@@ -12,8 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AcceuilController extends AbstractController
 {
     /**
+     * Je crée ma route avec mon nom URL
      * @Route ("acceuil", name="acceuil")
      */
+//    Je crée ensuite ma méthode que je nomme acceuil
     public function acceuil()
     {
         $articles = [
@@ -54,7 +56,7 @@ class AcceuilController extends AbstractController
                 'id' => 4
             ],
         ];
-
+//        Je donne le chemin à suivre vers mon twig
         return $this->render('home.html.twig',['articles'=> $articles]);
     }
 }

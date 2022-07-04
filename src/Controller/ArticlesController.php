@@ -10,8 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticlesController extends AbstractController
 {
 /**
+ * Je crée ma route cette fois ci avec un id qui va séléctionner les articles 1 à 1.
  * @Route ("article/{id}", name="article")
  */
+//    Je crée ma fonction que je nomme article et je lui attribut une variable id
     public function article($id)
     {
         $article = [
@@ -52,6 +54,8 @@ class ArticlesController extends AbstractController
                 'id' => 4
             ],
         ];
+        //        Je donne le chemin à suivre vers mon twig
+
         return $this ->render ('_article.html.twig',['article' => $article[$id]
         ]);
     }

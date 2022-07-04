@@ -4,7 +4,9 @@
     <article>
         <h1>{{ article.title }}</h1>
         <img src="{{ article.image }}" alt="image">
+{#        Je prends la date de création de mon article#}
         <p>{{ article.publishedAt | date('d-m-y')}}</p>
+{#        Je met un lien vers ma liste d'article#}
         <a class="btn" href="{{ path('listref', {'id': article.id}) }}"> Retour à la liste </a>
     </article>
 {% else %}

@@ -8,6 +8,7 @@
     <h1>{{ article.title }}</h1>
     <img src="{{ article.image }}" alt="image">
     <p>{{ article.publishedAt | date('d-m-y')}}</p>
+{#    Je met un lien qui renvoi aux articles seuls#}
     <a class="btn" href="{{ path('article', {'id': article.id}) }}"> En savoir plus </a>
 </article>
 {% endif %}
