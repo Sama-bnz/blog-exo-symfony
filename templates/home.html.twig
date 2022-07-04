@@ -1,0 +1,15 @@
+{% include '_header.html.twig' %}
+
+<h1>Bienvenue sur la page d'acceuil</h1>
+
+{% for article in articles [:3] %}
+    {% if article.isPublished %}
+        <article>
+            <h1>{{ article.title }}</h1>
+            <img src="{{ article.image }}" alt="image">
+            <p>{{ article.publishedAt | date('d-m-y')}}</p>
+        </article>
+    {% endif %}
+{% endfor %}
+
+{% include '_footer.html.twig' %}

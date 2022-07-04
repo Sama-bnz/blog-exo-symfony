@@ -1,0 +1,12 @@
+
+
+{% if article.isPublished %}
+    <article>
+        <h1>{{ article.title }}</h1>
+        <img src="{{ article.image }}" alt="image">
+        <p>{{ article.publishedAt | date('d-m-y')}}</p>
+        <a class="btn" href="{{ path('listref', {'id': article.id}) }}"> Retour à la liste </a>
+    </article>
+{% else %}
+    <p>No man's Land</p>
+{% endif %}
