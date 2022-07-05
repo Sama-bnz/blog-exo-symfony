@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+
     <section class="articles">
-        {% for article in lastArticles %}
+
+        {% for article in articles %}
 
             {% if article.isPublished %}
                 <article class="article">
@@ -14,4 +16,5 @@
 
         {% endfor %}
     </section>
+
 {% endblock %}

@@ -3,19 +3,15 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-class ListController extends AbstractController
+class PageController extends AbstractController
 {
-/**
- * Je crée ma route avec mon nom URL
- * @Route("listref", name="listref")
- */
-//Je crée ensuite ma méthode que je nomme listRef
-    public function listRef()
+
+    /**
+     * @Route("/", name="home")
+     */
+    public function home()
     {
         $articles = [
             1 => [
@@ -55,7 +51,12 @@ class ListController extends AbstractController
                 'id' => 4
             ],
         ];
-        //        Je donne le chemin à suivre vers mon twig
-        return $this ->render ('list.html.twig', ['articles'=> $articles]);
+
+        $lastArticles = array_slice($articles, 1, 3);
+
+        return $this->render('home.html.twig', [
+            'lastArticles' => $lastArticles
+        ]);
     }
+
 }
