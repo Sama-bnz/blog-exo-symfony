@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    <title>{{ article.title }}</title>
+{% endblock %}
+
 {% block main %}
 
     {% if article.isPublished %}
@@ -11,4 +15,8 @@
         </article>
     {% endif %}
 
+{% endblock %}
+
+{% block footer %}
+    <p>Les refs seuls maggle</p>
 {% endblock %}
