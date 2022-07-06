@@ -1,48 +1,92 @@
 <?php
 
 namespace App\Entity;
+
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Je crée une entité qui va servir à créer une table grâce aux annotations
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-//Je crée une classe et j'en definis le nom
 class Article
 {
-//    Je fournie à ma classe la valeur des colonnes
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
      */
-//    Je donne le titre à ma colonne
-    public $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    public $title;
+    private $title;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    public $image;
+    private $author;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $content;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    public $isPublished;
+    private $isPublished;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    public $author;
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
-//    Pour créer le fichier de migration:
-//    "php bin/console make:migration"
-//
-//    Pour executer la migration:
-//    "php bin/console doctrine:migration:migrate"
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
 }

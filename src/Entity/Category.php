@@ -36,18 +36,19 @@ class Category
     /**
      * @ORM\Column(type="text")
      */
+//    Le fait d'etre en privée permet de juste regarder
     private $description;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished;
-
+//    Le public permet de lire ET de definir la valeur
     public function getId(): ?int
     {
         return $this->id;
     }
-
+//    Les getter et setter permettent de gerer si on veux la valeur en public ou en private
     public function getTitle(): ?string
     {
         return $this->title;
