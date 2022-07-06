@@ -116,6 +116,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("insert-article", name="insert_article")
      */
+    //L'entity manager traduit en requete SQL
     public function insertArticle(EntityManagerInterface $entityManager)
     {
         //creer un nouvel enregistrement dans la table article
