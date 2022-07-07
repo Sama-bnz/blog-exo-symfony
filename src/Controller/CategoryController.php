@@ -55,11 +55,19 @@ class CategoryController extends AbstractController
             //en fonction d'un ID
             //donc SELECT * FROM article where id = xxx
             $category = $categoryRepository -> find(1);
-            
+
             dd($category);
 
         }
+    /**
+     * @Route("/categories", name="categories")
+     */
+    public function listCategory(CategoryRepository $categoryRepository)
+    {
+        $articles = $categoryRepository -> findAll();
 
+        dd($articles);
+    }
 
 
 
