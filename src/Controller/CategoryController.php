@@ -64,9 +64,9 @@ class CategoryController extends AbstractController
      */
     public function listCategory(CategoryRepository $categoryRepository)
     {
-        $articles = $categoryRepository -> findAll();
+        $categories = $categoryRepository -> findAll();
 
-        dd($articles);
+        dd($categories);
     }
 
 
