@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Article
 {
     /**
+     * ORM = OBJECT RELATIONNAL MAPPING
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")

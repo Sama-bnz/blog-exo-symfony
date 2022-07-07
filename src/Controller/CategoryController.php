@@ -40,7 +40,6 @@ class CategoryController extends AbstractController
         $entityManager->flush();
 
         dd($category);
-
-
     }
+
 }

@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-
+use App\Repository\ArticleRepository;
 use App\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,10 +63,41 @@ class ArticleController extends AbstractController
 
     }
 
+
+    /**
+     * @Route("/article", name="article")
+     */
+        public function showArticle(ArticleRepository $articleRepository)
+        {
+            //recuperer depuis la bdd un article
+            //en fonction d'un ID
+            //donc SELECT * FROM article where id = xxx
+
+            $article = $articleRepository -> find(1);
+
+            dd($article);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @Route("/articles/{id}", name="show_article")
      */
-    public function showArticle($id)
+    public function showArticles($id)
     {
         $articles = [
             1 => [
@@ -103,15 +134,15 @@ class ArticleController extends AbstractController
                 'isPublished' => true,
                 'author' => 'Mbala',
                 'image' => 'https://fr.web.img2.acsta.net/newsv7/21/01/20/15/49/5077377.jpg',
-                'id' => 4
-            ],
+               'id' => 4
+           ],
         ];
 
         $article = $articles[$id];
 
         return $this->render('show_article.html.twig', [
             'article' => $article
-        ]);
+       ]);
     }
     /**
      * @Route("insert-article", name="insert_article")
@@ -143,7 +174,7 @@ class ArticleController extends AbstractController
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
 
-        dd($article);
+        
 
 
     }
