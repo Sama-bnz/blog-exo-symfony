@@ -55,7 +55,7 @@ class CategoryController extends AbstractController
             //en fonction d'un ID
             //donc SELECT * FROM article where id = xxx
             $category = $categoryRepository -> find($id);
-
+            //Je lie ma route à mon fichier twig
             return $this ->render('show_category.html.twig',[
                 'category' => $category
             ]);
@@ -69,6 +69,7 @@ class CategoryController extends AbstractController
         //dans ma variable $categories je dois avoir toutes les valeurs de mon tableau
         $categories = $categoryRepository -> findAll();
 
+        //Je lie ma route à mon fichier twig
         return $this->render('list_categories.html.twig',[
             'categories' => $categories
         ]);
