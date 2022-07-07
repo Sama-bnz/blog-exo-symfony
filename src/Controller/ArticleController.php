@@ -174,7 +174,7 @@ class ArticleController extends AbstractController
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
 
-        
+
 
 
     }

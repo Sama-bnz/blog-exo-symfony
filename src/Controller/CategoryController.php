@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,36 @@ class CategoryController extends AbstractController
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
 
-        dd($category);
     }
+
+
+
+
+
+    /**
+     * @Route("/category", name="category")
+     */
+        public function showCategory(CategoryRepository $categoryRepository)
+        {
+            //recuperer depuis la bdd un article
+            //en fonction d'un ID
+            //donc SELECT * FROM article where id = xxx
+            $category = $categoryRepository -> find(1);
+            
+            dd($category);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
