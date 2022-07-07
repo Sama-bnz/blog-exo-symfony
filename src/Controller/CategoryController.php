@@ -47,26 +47,31 @@ class CategoryController extends AbstractController
 
 
     /**
-     * @Route("/category", name="category")
+     * @Route("/categories/{id}", name="show_category")
      */
-        public function showCategory(CategoryRepository $categoryRepository)
+        public function showCategory($id,CategoryRepository $categoryRepository)
         {
             //recuperer depuis la bdd un article
             //en fonction d'un ID
             //donc SELECT * FROM article where id = xxx
-            $category = $categoryRepository -> find(1);
+            $category = $categoryRepository -> find($id);
 
-            dd($category);
+            return $this ->render('show_category.html.twig',[
+                'category' => $category
+            ]);
 
         }
     /**
      * @Route("/categories", name="categories")
      */
-    public function listCategory(CategoryRepository $categoryRepository)
+    public function listCategories(CategoryRepository $categoryRepository)
     {
+        //dans ma variable $categories je dois avoir toutes les valeurs de mon tableau
         $categories = $categoryRepository -> findAll();
 
-        dd($categories);
+        return $this->render('list_categories.html.twig',[
+            'categories' => $categories
+        ]);
     }
 
 

@@ -17,7 +17,7 @@ class PageController extends AbstractController
     $lastArticles = $articleRepository->findBy([], ['id'=> 'DESC'],3);
 
         return $this->render('home.html.twig',[
-            'lastArticle' => $lastArticles
+            'lastArticles' => $lastArticles
         ]);
     }
 }
