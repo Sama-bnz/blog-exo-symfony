@@ -13,6 +13,8 @@
             {% if article.isPublished %}
                 <article class="article">
                     <h1>{{ article.title }}</h1>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('articles',{'id':article.id}) }}">La liste des articles</a></li>
+
                 </article>
             {% endif %}
 
