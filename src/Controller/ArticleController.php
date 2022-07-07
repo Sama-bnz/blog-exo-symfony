@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles", name="list_articles")
      */
-    public function listArticles()
+    public function listArticle()
     {
         $articles = [
             1 => [
@@ -81,7 +81,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles", name="articles")
      */
-        public function listArticle(ArticleRepository $articleRepository)
+        public function listArticles(ArticleRepository $articleRepository)
         {
             $articles = $articleRepository -> findAll();
 
