@@ -3,10 +3,11 @@
 
 namespace App\Controller;
 
-use App\Repository\ArticleRepository;
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -78,7 +79,26 @@ class ArticleController extends AbstractController
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
 
+    }
+    //Je creéer ma Route
+    /**
+     * @Route("/articles/delete/{id}", name="delete_article")
+     */
+    //Je créer ma méthode en récuperant l'id de LURL
+    public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
+        //J'utilise la méthode find pour trouver l'id
+        $article = $articleRepository ->find($id);
 
+        if(!is_null($article)){
+            //Je supprimé l'article avec la fonction entityManager
+            $entityManager ->remove($article);
+            $entityManager ->flush();
+
+            return new Response('deleted');
+        }else{
+            return new Response('Article déja supprimé');
+        }
 
 
     }
