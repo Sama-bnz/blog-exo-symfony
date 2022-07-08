@@ -97,9 +97,24 @@ class ArticleController extends AbstractController
 
             return new Response('deleted');
         }else{
-            return new Response('Article déja supprimé');
+            return new Response('The article is already deleted');
         }
+    }
 
+    /**
+     * @Route("/articles/update/{id}", name="update_article")
+     */
+    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
+        $article = $articleRepository->find($id);
+
+        //Mise à jour du titre de l'article
+        $article->setTitle("This title has been updated");
+
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        dd("ok");
 
     }
 }
