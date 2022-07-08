@@ -78,6 +78,7 @@ class AdminArticleController extends AbstractController
 
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
+        $this->addFlash('succes', 'Vous avez créer l\'article');
 
         return $this->redirectToRoute('admin_articles');
 
@@ -90,17 +91,19 @@ class AdminArticleController extends AbstractController
     public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
         //J'utilise la méthode find pour trouver l'id
-        $article = $articleRepository ->find($id);
+        $article = $articleRepository->find($id);
 
-        if(!is_null($article)){
+        if (!is_null($article)) {
             //Je supprimé l'article avec la fonction entityManager
-            $entityManager ->remove($article);
-            $entityManager ->flush();
+            $entityManager->remove($article);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('admin_articles');
-        }else{
-            return new Response('The article is already deleted');
+            $this->addFlash('success', 'Vous avez bien supprimé l\'article !');
+        } else {
+            $this->addFlash('error', 'Article introuvable ! ');
         }
+        return $this->redirectToRoute('admin_articles');
+
     }
 
     /**

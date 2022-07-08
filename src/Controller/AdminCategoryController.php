@@ -43,8 +43,9 @@ class AdminCategoryController extends AbstractController
 
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
-
-        return $this->redirectToRoute('admin_categories');
+        //Je passe un message instantané et ephémere pour signaler la reussite de l'action
+        $this->addFlash('success', 'La catégorie à bien été ajoutée !');
+        return new Response('ok!');
 
     }
 
@@ -93,6 +94,9 @@ class AdminCategoryController extends AbstractController
             //Je supprimé l'article avec la fonction entityManager
             $entityManager ->remove($category);
             $entityManager ->flush();
+
+            $this->addFlash('success', 'Vous avez bien supprimé la categorie !');
+
 
             return $this->redirectToRoute('admin_categories');
         }else{

@@ -5,7 +5,7 @@
 .header-top {
     display: flex;
     justify-content: flex-end;
-    background-color: darkcyan;
+    background-color: yellow;
 }
 
 .nav-items {
@@ -42,6 +42,15 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+.message-success {
+    background-color: green;
+}
+
+
+.message-error {
+    background-color: red;
 }
 
 @media screen and (max-width: 640px) {
