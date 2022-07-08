@@ -1,12 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-{#j'indique à mon twig que pour chaque catégorie de ma liste il faudra appliquer les mesures suivantes#}
+    <a href="{{ path('admin_insert_category') }}">Ajouter une categorie</a>
+
+
+    {#J'indique à mon twig la création d'article#}
+
+{#    <a href="{{ path('admin-insert-categories') }}">Ajouter un article catégorie</a>#}
+
+    {#j'indique à mon twig que pour chaque catégorie de ma liste il faudra appliquer les mesures suivantes#}
 {% for category in categories %}
     <article>
 {#        La couleur de mon article sera celle que j'ai appliqué à sa caractéristique "color"#}
         <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
         <a href="{{ path('admin_show_category', {'id': category.id}) }}">Rencontre les animaux du Zoo</a>
+{#        //je me l'option de suppression d'un article à mon twig#}
         <a href="{{ path ('admin_delete_category',{'id':category.id })}}">Voulez-vous supprimé cet article? </a>
 
     </article>

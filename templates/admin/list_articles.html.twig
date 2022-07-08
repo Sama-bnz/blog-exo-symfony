@@ -5,7 +5,13 @@
 {% endblock %}
 
 
+
 {% block main %}
+    <a href="{{ path('admin_insert_article') }}">Ajouter un article</a>
+
+    <section>
+        <a href=""
+    </section>
 
     <section class="articles">
 
@@ -16,6 +22,7 @@
                     <h1>{{ article.title }}</h1>
                     <p>{{ article.content }}</p>
                     <li class="nav-item"><a class="nav-link" href="{{ path('admin_article') }}">En savoir plus sur la qualité</a></li>
+                    {#        //je me l'option de suppression d'un article à mon twig#}
                     <a href="{{ path ('admin_delete_article',{'id':article.id })}}">Voulez-vous supprimé cet article? </a>
                 </article>
             {% endif %}

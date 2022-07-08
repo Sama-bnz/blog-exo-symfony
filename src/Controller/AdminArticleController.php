@@ -79,6 +79,8 @@ class AdminArticleController extends AbstractController
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
 
+        return $this->redirectToRoute('admin_articles');
+
     }
     //Je creéer ma Route
     /**
@@ -95,7 +97,7 @@ class AdminArticleController extends AbstractController
             $entityManager ->remove($article);
             $entityManager ->flush();
 
-            return new Response('deleted');
+            return $this->redirectToRoute('admin_articles');
         }else{
             return new Response('The article is already deleted');
         }
@@ -117,7 +119,7 @@ class AdminArticleController extends AbstractController
         //On déploie la modification grace au flush
         $entityManager->flush();
 
-        dd("ok");
+
     }
 
 }

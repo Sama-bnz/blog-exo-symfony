@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Category;
+use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ class AdminCategoryController extends AbstractController
 
 {
     /**
-     * @Route("/admin/insert-category", name="admin_insert_category")
+     * @Route("/admin/insert_category", name="admin_insert_category")
      */
     //L'entity manager traduit en requete SQL
     public function insertCategory(EntityManagerInterface $entityManager)
@@ -42,6 +43,8 @@ class AdminCategoryController extends AbstractController
 
         //Je pousse vers la BDD la totalité avec la fonction flush
         $entityManager->flush();
+
+        return $this->redirectToRoute('admin_categories');
 
     }
 
@@ -81,13 +84,35 @@ class AdminCategoryController extends AbstractController
     /**
      * @Route("/admin/categories/delete/{id}", name="admin_delete_category")
      */
-    public function deleteCategory()
+    public function deleteCategory($id, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
     {
+        //J'utilise la méthode find pour trouver l'id
+        $category = $categoryRepository ->find($id);
 
+        if(!is_null($category)){
+            //Je supprimé l'article avec la fonction entityManager
+            $entityManager ->remove($category);
+            $entityManager ->flush();
+
+            return $this->redirectToRoute('admin_categories');
+        }else{
+            return new Response('The article is already deleted');
+        }
     }
 
 
+    /*
+     * @Route("/admin/categories/update/{id}", name: "admin-categories-update")]
+     */
+    public function updateCategory($id, ArticleCategoryRepository $articleCategoryRepository, EntityManagerInterface $entityManager){
+        $category = $articleCategoryRepository->find($id);
 
+        $category->setTitle("Title");
+
+        $entityManager->persist($category);
+        $entityManager->flush();
+
+    }
 
 
 
