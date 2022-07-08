@@ -111,7 +111,10 @@ class ArticleController extends AbstractController
         //Mise à jour du titre de l'article
         $article->setTitle("This title has been updated");
 
+        //On fais la modification de la variable article avec persist
         $entityManager->persist($article);
+
+        //On déploie la modification grace au flush 
         $entityManager->flush();
 
         dd("ok");
