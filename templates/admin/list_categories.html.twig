@@ -7,6 +7,8 @@
 {#        La couleur de mon article sera celle que j'ai appliqué à sa caractéristique "color"#}
         <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
         <a href="{{ path('admin_show_category', {'id': category.id}) }}">Rencontre les animaux du Zoo</a>
+        <a href="{{ path ('admin_delete_category',{'id':category.id })}}">Voulez-vous supprimé cet article? </a>
+
     </article>
 {% endfor %}
 

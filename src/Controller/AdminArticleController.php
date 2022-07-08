@@ -118,6 +118,6 @@ class AdminArticleController extends AbstractController
         $entityManager->flush();
 
         dd("ok");
-
     }
+
 }
