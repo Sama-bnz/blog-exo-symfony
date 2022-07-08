@@ -10,7 +10,7 @@
         <article class="article-single">
             <h1>{{ article.title }}</h1>
             <p>{{ article.content }}</p>
-            <li class="nav-item"><a class="nav-link" href="{{ path('articles',{'id':article.id}) }}">La liste des articles</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('admin_articles',{'id':article.id}) }}">La liste des articles</a></li>
 
         </article>
     {% endif %}

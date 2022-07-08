@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("article", name="article")
+     * @Route("/admin/article", name="admin_article")
      */
         public function showArticle(ArticleRepository $articleRepository)
         {
@@ -32,7 +32,7 @@ class ArticleController extends AbstractController
 
         }
     /**
-     * @Route("/articles", name="articles")
+     * @Route("/admin/articles", name="admin_articles")
      */
         public function listArticles(ArticleRepository $articleRepository)
         {
@@ -50,7 +50,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("insert-article", name="insert_article")
+     * @Route("/admin/insert-article", name="admin_insert_article")
      */
     //L'entity manager traduit en requete SQL
     public function insertArticle(EntityManagerInterface $entityManager)
@@ -82,7 +82,7 @@ class ArticleController extends AbstractController
     }
     //Je creéer ma Route
     /**
-     * @Route("/articles/delete/{id}", name="delete_article")
+     * @Route("/admin/articles/delete/{id}", name="admin_delete_article")
      */
     //Je créer ma méthode en récuperant l'id de LURL
     public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
@@ -102,7 +102,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/articles/update/{id}", name="update_article")
+     * @Route("/admin/articles/update/{id}", name="admin_update_article")
      */
     public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
@@ -114,7 +114,7 @@ class ArticleController extends AbstractController
         //On fais la modification de la variable article avec persist
         $entityManager->persist($article);
 
-        //On déploie la modification grace au flush 
+        //On déploie la modification grace au flush
         $entityManager->flush();
 
         dd("ok");
