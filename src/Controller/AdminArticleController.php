@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class ArticleController extends AbstractController
+class AdminArticleController extends AbstractController
 {
 
 
@@ -26,7 +26,7 @@ class ArticleController extends AbstractController
 
             $article = $articleRepository -> find(1);
 
-            return $this->render('show_article.html.twig',[
+            return $this->render('admin/show_article.html.twig',[
                 'article' => $article
             ]);
 
@@ -38,7 +38,7 @@ class ArticleController extends AbstractController
         {
             $articles = $articleRepository -> findAll();
 
-            return $this ->render('list_articles.html.twig',[
+            return $this ->render('admin/list_articles.html.twig',[
                 'articles' => $articles
             ]);
         }
