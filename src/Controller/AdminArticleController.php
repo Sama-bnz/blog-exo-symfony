@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,48 +57,28 @@ class AdminArticleController extends AbstractController
     //L'entity manager traduit en requete SQL
     public function insertArticle(EntityManagerInterface $entityManager, Request $request)
     {
-        //creer un nouvel enregistrement dans la table article
-        //avec des donnés title, content etc
-        $title = $request->query->get('title');
-        $content = $request->query->get('content');
 
-        if (!empty($title) &&
-            !empty($content)
-        ){
             //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
 //        dans le but de créer un nouvel article de la BDD (table article)
 
             $article = new Article();
 
-//        j'utilise les setters du titre, du contenu etc
-//        pour lettre les données voulues pour le titre , le contenu etc
-        $article ->setTitle($title);
-        $article ->setContent($content);
-        $article->setAuthor('Mbala');
-        $article->setIsPublished(true);
+//        j'ai utilisé la ligne de cmd php bin/console make:form pour créer une classe symfony qui va contenir le "plan" de formulaire afin de créer les articles. C'est la classe ArticleType
 
-            //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
-//        dans la bdd dans la table article (en deux étapes avec le persist puis le flush)
+        $form = $this->createForm(ArticleType::class,$article);
 
-            $entityManager->persist($article);
+            //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
 
-            //Je pousse vers la BDD la totalité avec la fonction flush
-            $entityManager->flush();
+            return $this->render("admin/insert_article.html.twig",[
+                'form' => $form->createView()
+            ]);
 
-            //Je passe un message instantané et ephémere pour signaler la reussite de l'action
-            $this->addFlash('succes', 'Vous avez créer l\'article');
-            return $this->redirectToRoute('admin_articles');
-
-        }
-        //Je passe le message d'erreur si les condition ne sont pas rempli
-        $this->addFlash('error', 'Veuillez remplir le contenu de l\'article !');
-        return $this->render('admin/insert_article.html.twig');
 
 
     }
 
 
-    //Je creéer ma Route
+    //Je créer ma Route
     /**
      * @Route("/admin/articles/delete/{id}", name="admin_delete_article")
      */

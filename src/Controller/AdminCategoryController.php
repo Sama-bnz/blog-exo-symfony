@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,43 +23,23 @@ class AdminCategoryController extends AbstractController
     //L'entity manager traduit en requete SQL
     public function insertCategory(EntityManagerInterface $entityManager, Request $request)
     {
-        //creer un nouvel enregistrement dans la table article
-        //avec des donnés title, content etc
-        $title = $request->query->get('title');
-        $color = $request->query->get('color');
 
-        if (!empty($title) &&
-            !empty($color)
-        ){
-            //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
+
+        //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
 //        dans le but de créer un nouvel article de la BDD (table article)
 
-            $category = new Category();
+        $category = new Category();
 
-//        j'utilise les setters du titre, du contenu etc
-//        pour lettre les données voulues pour le titre , le contenu etc
-            $category ->setTitle($title);
-            $category ->setColor($color);
-            $category->setDescription('Oui alors les couleurs c\'est cool quand c\'est pas compliqué');
-            $category->setIsPublished(true);
+//        j'ai utilisé la ligne de cmd php bin/console make:form pour créer une classe symfony qui va contenir le "plan" de formulaire afin de créer les articles. C'est la classe ArticleType
 
-            //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
-//        dans la bdd dans la table article (en deux étapes avec le persist puis le flush)
+        $form = $this->createForm(CategoryType::class, $category);
 
-            $entityManager->persist($category);
+        //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
 
-            //Je pousse vers la BDD la totalité avec la fonction flush
-            $entityManager->flush();
-            //Je passe un message instantané et ephémere pour signaler la reussite de l'action
-            $this->addFlash('success', 'La catégorie à bien été ajoutée !');
-            return $this->redirectToRoute('admin_categories');
-        }
-        
-        //Je passe le message d'erreur si les condition ne sont pas rempli
-        $this->addFlash('error', 'Veuillez remplir le contenu de la catégorie !');
-        return $this->render('admin/insert_category.html.twig');
+        return $this->render("admin/insert_category.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
-
 
     /**
      * @Route("/admin/categories/{id}", name="admin_show_category")

@@ -1,19 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    {#    Je créer mon article avec mon titre mon contenu et la couleur#}
+    {#    J'utilise la fonction twig form et je lui passe la variable qui contient mon formulaire depuis le controleur ça permet de geneger tout les inputs + label de mon formulaire#}
+    {{ form(form) }}
 
-    <div class="category_form">
-<form action="{{ path('admin_insert_article') }}" method="get">
-
-    <label for="title">Veuillez choisir votre Titre</label>
-    <input type="text" name="title">
-
-    <label for="content">Votre Contenu</label>
-    <input type="text" name="content">
-
-    <input type="submit">
-
-</form>
-</div>
 {% endblock %}
