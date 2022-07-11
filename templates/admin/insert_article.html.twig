@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+    {#    Je créer mon article avec mon titre mon contenu et la couleur#}
 
+    <div class="category_form">
 <form action="{{ path('admin_insert_article') }}" method="get">
 
-    <label for="title">Titre</label>
+    <label for="title">Veuillez choisir votre Titre</label>
     <input type="text" name="title">
 
-    <label for="content">Contenu</label>
+    <label for="content">Votre Contenu</label>
     <input type="text" name="content">
 
     <input type="submit">
 
 </form>
+</div>
 {% endblock %}

@@ -5,6 +5,7 @@
 <article>
     {# La couleur de mon article sera celle que j'ai appliqué à sa caractéristique "color"#}
     <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
+    <h2>{{ category.description }}</h2>
     <li class="nav-item"><a class="nav-link" href="{{ path('admin_categories',{'id':category.id}) }}">La liste des articles</a></li>
 
 </article>

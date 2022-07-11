@@ -17,7 +17,7 @@ class AdminArticleController extends AbstractController
 
 
     /**
-     * @Route("/admin/article", name="admin_article")
+     * @Route("/admin/article/{id}", name="admin_article")
      */
         public function showArticle(ArticleRepository $articleRepository, $id)
         {
@@ -83,6 +83,8 @@ class AdminArticleController extends AbstractController
 
             //Je pousse vers la BDD la totalité avec la fonction flush
             $entityManager->flush();
+            
+            //Je passe un message instantané et ephémere pour signaler la reussite de l'action
             $this->addFlash('succes', 'Vous avez créer l\'article');
             return $this->redirectToRoute('admin_articles');
 
