@@ -24,10 +24,10 @@ class AdminCategoryController extends AbstractController
     public function insertCategory(EntityManagerInterface $entityManager, Request $request)
     {
 
-
-        //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
+        //je créé une instance de la classe article (classe d'entité (celle qui as permis de crée la table))
 //        dans le but de créer un nouvel article de la BDD (table article)
 
+//    Pour créer cette categorie j'utilise la formule PHP BIN/CONSOLE MAKE:FORM  sur mon commander
         $category = new Category();
 
 //        j'ai utilisé la ligne de cmd php bin/console make:form pour créer une classe symfony qui va contenir le "plan" de formulaire afin de créer les articles. C'est la classe ArticleType
@@ -35,11 +35,14 @@ class AdminCategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $category);
 
         //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
+        //J'en profites pour créer la view, qui sera visible par la personne sur le site
 
         return $this->render("admin/insert_category.html.twig", [
             'form' => $form->createView()
         ]);
     }
+
+
 
     /**
      * @Route("/admin/categories/{id}", name="admin_show_category")
