@@ -34,6 +34,19 @@ class AdminCategoryController extends AbstractController
 
         $form = $this->createForm(CategoryType::class, $category);
 
+        //On donne à la variable qui contient le formulaire une instance de la classe Request pour que le formulaire puisse récuperer tout les données des inputs et faire les setters sur $article automatiquement.
+        //Mon formulaire est maintenant capable de recuperer et stocker les infos
+        $form->handleRequest($request);
+
+        //Si le formulaire à été posté et que les données sont valide
+        if($form->isSubmitted() && $form->isValid()){
+            //On enregistre l'article dans la BDD
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La catégorie est bien enregistrée!');
+        }
+
         //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
         //J'en profites pour créer la view, qui sera visible par la personne sur le site
 
