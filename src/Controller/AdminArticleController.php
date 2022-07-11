@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,13 +19,13 @@ class AdminArticleController extends AbstractController
     /**
      * @Route("/admin/article", name="admin_article")
      */
-        public function showArticle(ArticleRepository $articleRepository)
+        public function showArticle(ArticleRepository $articleRepository, $id)
         {
             //recuperer depuis la bdd un article
             //en fonction d'un ID
             //donc SELECT * FROM article where id = xxx
 
-            $article = $articleRepository -> find(1);
+            $article = $articleRepository -> find($id);
 
             return $this->render('admin/show_article.html.twig',[
                 'article' => $article
@@ -53,36 +54,46 @@ class AdminArticleController extends AbstractController
      * @Route("/admin/insert-article", name="admin_insert_article")
      */
     //L'entity manager traduit en requete SQL
-    public function insertArticle(EntityManagerInterface $entityManager)
+    public function insertArticle(EntityManagerInterface $entityManager, Request $request)
     {
         //creer un nouvel enregistrement dans la table article
         //avec des donnés title, content etc
+        $title = $request->query->get('title');
+        $content = $request->query->get('content');
 
-
-        //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
+        if (!empty($title) &&
+            !empty($content)
+        ){
+            //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
 //        dans le but de créer un nouvel article de la BDD (table article)
 
-        $article = new Article();
+            $article = new Article();
 
 //        j'utilise les setters du titre, du contenu etc
 //        pour lettre les données voulues pour le titre , le contenu etc
-        $article ->setTitle('Chat mignon');
-        $article ->setContent("Oh qu'il es cute ce con de chat");
+        $article ->setTitle($title);
+        $article ->setContent($content);
         $article->setAuthor('Mbala');
         $article->setIsPublished(true);
 
-        //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
+            //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
 //        dans la bdd dans la table article (en deux étapes avec le persist puis le flush)
 
-        $entityManager->persist($article);
+            $entityManager->persist($article);
 
-        //Je pousse vers la BDD la totalité avec la fonction flush
-        $entityManager->flush();
-        $this->addFlash('succes', 'Vous avez créer l\'article');
+            //Je pousse vers la BDD la totalité avec la fonction flush
+            $entityManager->flush();
+            $this->addFlash('succes', 'Vous avez créer l\'article');
+            return $this->redirectToRoute('admin_articles');
 
-        return $this->redirectToRoute('admin_articles');
+        }
+        $this->addFlash('error', 'Veuillez remplir le contenu de l\'article !');
+        return $this->render('admin/insert_article.html.twig');
+
 
     }
+
+
     //Je creéer ma Route
     /**
      * @Route("/admin/articles/delete/{id}", name="admin_delete_article")
@@ -111,6 +122,7 @@ class AdminArticleController extends AbstractController
      */
     public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
+        //Avec le repository je selectionne un article en fonction de l'ID
         $article = $articleRepository->find($id);
 
         //Mise à jour du titre de l'article

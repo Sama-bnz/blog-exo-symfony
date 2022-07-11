@@ -4,10 +4,10 @@ namespace App\Controller;
 
 
 use App\Entity\Category;
-use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,39 +18,42 @@ class AdminCategoryController extends AbstractController
      * @Route("/admin/insert_category", name="admin_insert_category")
      */
     //L'entity manager traduit en requete SQL
-    public function insertCategory(EntityManagerInterface $entityManager)
+    public function insertCategory(EntityManagerInterface $entityManager, Request $request)
     {
         //creer un nouvel enregistrement dans la table article
         //avec des donnés title, content etc
+        $title = $request->query->get('title');
+        $color = $request->query->get('color');
 
-
-        //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
+        if (!empty($title) &&
+            !empty($color)
+        ){
+            //je créé une instance de la classs article (classe d'entité (celle qui as permis de crée la table))
 //        dans le but de créer un nouvel article de la BDD (table article)
 
-        $category = new Category();
+            $category = new Category();
 
 //        j'utilise les setters du titre, du contenu etc
 //        pour lettre les données voulues pour le titre , le contenu etc
-        $category ->setTitle('Chat mignon');
-        $category ->setColor("entre le rouge et le mauve saupoudré de vert-pomme-cassis-framboise");
-        $category->setDescription('Oui alors les couleurs c\'est cool quand c\'est pas compliqué');
-        $category->setIsPublished(true);
+            $category ->setTitle($title);
+            $category ->setColor($color);
+            $category->setDescription('Oui alors les couleurs c\'est cool quand c\'est pas compliqué');
+            $category->setIsPublished(true);
 
-        //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
+            //J'utilise la classe EntityManagerInterface de Doctrine pour enregistre mon entité
 //        dans la bdd dans la table article (en deux étapes avec le persist puis le flush)
 
-        $entityManager->persist($category);
+            $entityManager->persist($category);
 
-        //Je pousse vers la BDD la totalité avec la fonction flush
-        $entityManager->flush();
-        //Je passe un message instantané et ephémere pour signaler la reussite de l'action
-        $this->addFlash('success', 'La catégorie à bien été ajoutée !');
-        return new Response('ok!');
-
+            //Je pousse vers la BDD la totalité avec la fonction flush
+            $entityManager->flush();
+            //Je passe un message instantané et ephémere pour signaler la reussite de l'action
+            $this->addFlash('success', 'La catégorie à bien été ajoutée !');
+            return $this->redirectToRoute('admin_categories');
+        }
+        $this->addFlash('error', 'Veuillez remplir le contenu de la catégorie !');
+        return $this->render('admin/insert_category.html.twig');
     }
-
-
-
 
 
     /**
