@@ -83,12 +83,13 @@ class AdminArticleController extends AbstractController
 
             //Je pousse vers la BDD la totalité avec la fonction flush
             $entityManager->flush();
-            
+
             //Je passe un message instantané et ephémere pour signaler la reussite de l'action
             $this->addFlash('succes', 'Vous avez créer l\'article');
             return $this->redirectToRoute('admin_articles');
 
         }
+        //Je passe le message d'erreur si les condition ne sont pas rempli
         $this->addFlash('error', 'Veuillez remplir le contenu de l\'article !');
         return $this->render('admin/insert_article.html.twig');
 

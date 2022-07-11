@@ -51,6 +51,8 @@ class AdminCategoryController extends AbstractController
             $this->addFlash('success', 'La catégorie à bien été ajoutée !');
             return $this->redirectToRoute('admin_categories');
         }
+        
+        //Je passe le message d'erreur si les condition ne sont pas rempli
         $this->addFlash('error', 'Veuillez remplir le contenu de la catégorie !');
         return $this->render('admin/insert_category.html.twig');
     }
