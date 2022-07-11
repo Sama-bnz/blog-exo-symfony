@@ -117,19 +117,33 @@ class AdminArticleController extends AbstractController
     /**
      * @Route("/admin/articles/update/{id}", name="admin_update_article")
      */
-    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager,Request $request)
     {
         //Avec le repository je selectionne un article en fonction de l'ID
         $article = $articleRepository->find($id);
 
-        //Mise à jour du titre de l'article
-        $article->setTitle("This title has been updated");
+//        j'ai utilisé la ligne de cmd php bin/console make:form pour créer une classe symfony qui va contenir le "plan" de formulaire afin de créer les articles. C'est la classe ArticleType
 
-        //On fais la modification de la variable article avec persist
-        $entityManager->persist($article);
+        $form = $this->createForm(ArticleType::class,$article);
 
-        //On déploie la modification grace au flush
-        $entityManager->flush();
+        //On donne à la variable qui contient le formulaire une instance de la classe Request pour que le formulaire puisse récuperer tout les données des inputs et faire les setters sur $article automatiquement.
+        //Mon formulaire est maintenant capable de recuperer et stocker les infos
+        $form->handleRequest($request);
+
+        //Si le formulaire à été posté et que les données sont valide
+        if($form->isSubmitted() && $form->isValid()){
+            //On enregistre l'article dans la BDD
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article est bien enregistré!');
+        }
+
+        //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
+
+        return $this->render("admin/insert_article.html.twig",[
+            'form' => $form->createView()
+        ]);
 
 
     }

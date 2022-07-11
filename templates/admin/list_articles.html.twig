@@ -23,6 +23,9 @@
                     <p>{{ article.content }}</p>
                     <li class="nav-item"><a class="nav-link" href="{{ path('admin_article',{'id':article.id}) }}">En savoir plus sur la qualité</a></li>
                     {#        //je met l'option de suppression d'un article à mon twig#}
+                    <br>
+                    <a href="{{ path ('admin_update_article',{'id':article.id })}}">Voulez-vous modifié cet article? </a>
+                    <br>
                     <a href="{{ path ('admin_delete_article',{'id':article.id })}}">Voulez-vous supprimé cet article? </a>
                 </article>
             {% endif %}

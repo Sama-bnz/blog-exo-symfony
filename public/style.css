@@ -48,26 +48,27 @@
     background-color: green;
 }
 
-
 .message-error {
     background-color: red;
 }
+
 .article_form{
     margin: 20px auto;
     width: 50%;
     padding: 15px;
     border: 10px solid darkcyan;
 }
+
 .category_form{
     margin: 20px auto;
     width: 50%;
     padding: 15px;
     border: 10px solid darkcyan;
+
 }
 
 form input{
     text-align: center;
-    display: block;
     margin-bottom: 10px;
 }
 
