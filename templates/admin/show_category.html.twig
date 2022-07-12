@@ -5,6 +5,10 @@
 <article>
     {# La couleur de mon article sera celle que j'ai appliqué à sa caractéristique "color"#}
     <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
+{#    //Je fais une boucle d'article dans mes categories afin d'y afficher le titre#}
+    {% for article in category.articles %}
+    <p>{{ article.title }}</p>
+    {% endfor %}
     <h2>{{ category.description }}</h2>
     <li class="nav-item"><a class="nav-link" href="{{ path('admin_categories',{'id':category.id}) }}">La liste des articles</a></li>
 

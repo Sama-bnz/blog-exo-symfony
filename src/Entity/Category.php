@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,17 @@ class Category
     private $color;
 
     /**
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
+
+    /**
      * @ORM\Column(type="text")
      */
 //    Le fait d'etre en privée permet de juste regarder
@@ -48,6 +60,7 @@ class Category
     {
         return $this->id;
     }
+
 //    Les getter et setter permettent de gerer si on veux la valeur en public ou en private
     public function getTitle(): ?string
     {
@@ -96,6 +109,17 @@ class Category
 
         return $this;
     }
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    public function setArticles($articles): void
+    {
+        $this->articles = $articles;
+    }
+
+
     //    Pour créer le fichier de migration:
 //    "php bin/console make:migration"
 //

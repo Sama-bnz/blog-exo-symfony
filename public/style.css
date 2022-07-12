@@ -7,7 +7,10 @@
     justify-content: flex-end;
     background-color: darkcyan;
 }
-
+.cate_list{
+    text-align: center;
+    border: 10px whitesmoke solid;
+}
 
 .nav-items {
     display: flex;

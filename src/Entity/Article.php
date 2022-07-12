@@ -40,7 +40,7 @@ class Article
 
     /**
      * Je modifie la structure de la base de donnée en mettant des categories dans mes articles
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $category;
 
