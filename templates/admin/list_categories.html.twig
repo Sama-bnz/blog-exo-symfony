@@ -14,8 +14,11 @@
 {#        La couleur de mon article sera celle que j'ai appliqué à sa caractéristique "color"#}
         <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
         <P>{{ category.description }}</P>
-        <a href="{{ path('admin_show_category', {'id': category.id}) }}">Rencontre les animaux du Zoo</a>
+        <a href="{{ path('admin_show_category', {'id': category.id})}}">Rencontre les animaux du Zoo</a>
 {#        //je me l'option de suppression d'un article à mon twig#}
+        <br>
+        <a href="{{ path ('admin_category_update',{'id':category.id })}}">Voulez-vous modifié cette catégorie? </a>
+        <br>
         <a href="{{ path ('admin_delete_category',{'id':category.id })}}">Voulez-vous supprimé cet article? </a>
 
     </article>

@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 
-use App\Entity\Article;
 use App\Entity\Category;
-use App\Form\ArticleType;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -109,16 +107,35 @@ class AdminCategoryController extends AbstractController
     }
 
 
-    /*
-     * @Route("/admin/categories/update/{id}", name: "admin-categories-update")]
+    /**
+     * @Route("/admin/categories/update/{id}", name="admin_category_update")
      */
-    public function updateCategory($id, ArticleCategoryRepository $articleCategoryRepository, EntityManagerInterface $entityManager){
-        $category = $articleCategoryRepository->find($id);
+    public function updateCategory($id, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager,Request $request){
 
-        $category->setTitle("Title");
+        $category = $categoryRepository->find($id);
 
-        $entityManager->persist($category);
-        $entityManager->flush();
+//        j'ai utilisé la ligne de cmd php bin/console make:form pour créer une classe symfony qui va contenir le "plan" de formulaire afin de créer les articles. C'est la classe CategoryType
+
+        $form = $this->createForm(CategoryType::class,$category);
+
+        //On donne à la variable qui contient le formulaire une instance de la classe Request pour que le formulaire puisse récuperer tout les données des inputs et faire les setters sur $article automatiquement.
+        //Mon formulaire est maintenant capable de recuperer et stocker les infos
+        $form->handleRequest($request);
+
+        //Si le formulaire à été posté et que les données sont valide
+        if($form->isSubmitted() && $form->isValid()){
+            //On enregistre l'article dans la BDD
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La catégorie à bien été modifiée!');
+        }
+
+        //j'affiche mon twig en lui passant une variable form qui contient la view du formulaire
+
+        return $this->render("admin/insert_category.html.twig",[
+            'form' => $form->createView()
+        ]);
 
     }
 
