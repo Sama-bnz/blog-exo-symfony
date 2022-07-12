@@ -2,7 +2,20 @@
 
 {% block main %}
     {#    J'utilise la fonction twig form et je lui passe la variable qui contient mon formulaire depuis le controleur ça permet de geneger tout les inputs + label de mon formulaire#}
-    <div class="category_form">
-        {{ form(form) }}
+    <div class="form-group">
+{#        {{ form(form) }}#}
+        {{ form_start(form) }}
+
+        {{ form_label(form.title, 'Titre',{'label_attr':{'class': 'form-label' }}) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+
+        {{ form_label(form.description, 'Description',{'label_attr':{'class': 'form-label'}}) }}
+        {{ form_widget(form.description, {'attr':{'class': 'form-control'}}) }}
+
+        {{ form_label(form.color, 'Color',{'label_attr':{'class':'form-label'}}) }}
+        {{ form_widget(form.color, {'attr':{'class': 'form-control'}}) }}
+
+        {{ form_widget(form.submit, {'attr':{'class': 'btn btn-primary'}}) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
