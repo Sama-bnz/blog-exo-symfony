@@ -4,12 +4,26 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
+    //Je crée une fonction de condition de validation lié à la classe metadata
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('title', new Assert\Length([
+            //Je met mes conditions minimum et maximum requis
+            'min' => 3,
+            'max' => 50,
+            //J'affiche les messages d'érreurs en cas de non respect des conditions
+            'minMessage' => 'Your title must be at least have {{ limit }} characters',
+            'maxMessage' => 'Your title can\'t be longer than {{ limit }} characters',
+        ]));
+    }
     /**
      * ORM = OBJECT RELATIONNAL MAPPING
      * @ORM\Id
