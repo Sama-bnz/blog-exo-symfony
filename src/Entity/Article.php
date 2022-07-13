@@ -24,8 +24,10 @@ class Article
 
     /**
     *@ORM\Column(type="string", length=255)
+     * Je met une contrainte assert not null, dans ce cas précis si il n'y as aucun champ dans mon titre
+     * cela affichera à l'écran une erreur.
     *@Assert\NotNull(message="Il faut un titre")
- */
+    */
     private $title;
 
     /**
