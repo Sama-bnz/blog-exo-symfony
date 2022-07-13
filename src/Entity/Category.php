@@ -35,7 +35,8 @@ class Category
     private $color;
 
     /**
-     * 
+     * Je créer une relation entre la category et article avec OneToMany
+     * Je créer une fonction construct qui fais que ma variable $article devient un tableau
      * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
      */
     private $articles;
