@@ -41,6 +41,7 @@ class Article
     /**
      * Je modifie la structure de la base de donnée en mettant des categories dans mes articles
      * Je fais donc un lien entre article et category
+     * Lorsque je fais "ManyToOne, je créer ma clé etrangère
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $category;

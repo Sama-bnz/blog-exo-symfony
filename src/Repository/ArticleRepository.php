@@ -38,7 +38,28 @@ class ArticleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    //Je créer ma fonction search dans mon Article repository
+    public function searchByWord($search)
+    {
+        //Le createQueryBuilder est un objet qui permet de créer des requetes SQL en PHP
+        $qb = $this->createQueryBuilder('article');
 
+        //Je fais un select sur ma table article
+        $query = $qb->select('article')
+
+        //je récupere les articles dont le titre corresponds à :search
+            ->where('article.title LIKE :search')
+
+        //Je dois definir la valeur de :search en lui mettant des "%" avant et apres, cela veux dire que meme si des mots
+        // sont avant ou apres la recherche sera reussie
+        //Je le fais en 2 étapes qui sont le setParameter et le GetQuery
+        ->setParameter('search','%'.$search.'%')
+        //Je récupere la requete
+        ->getQuery();
+
+        //Enfin j'execute la requete en base de donnée et je récupere les résultats
+        return $query->getResult();
+    }
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
